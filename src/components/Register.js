@@ -1,18 +1,23 @@
 import React, { Component } from "react";
-import { View, Text, StyleSheet, TextInput } from "react-native";
-import { TouchableOpacity } from "react-native-web";
-
-class Profile extends Component {
+import {
+	View,
+	Text,
+	StyleSheet,
+	TouchableOpacity,
+	TextInput,
+} from "react-native";
+class Register extends Component {
 	constructor(props) {
 		super(props);
 	}
-
 	render() {
 		return (
 			<View style={styles.container}>
-				<Text>Profile</Text>
+				<Text>Registro </Text>
+				<TextInput style={styles.input} />
+				<TextInput style={styles.input} />
 				<TouchableOpacity onPress={() => this.props.navigation.navigate("Login")}>
-					<Text>Log Out</Text>
+					<Text>Ir al login</Text>
 				</TouchableOpacity>
 			</View>
 		);
@@ -27,6 +32,12 @@ const styles = StyleSheet.create({
 		gap: 20,
 		height: 500,
 	},
+	input: {
+		borderWidth: 1,
+		borderColor: "black",
+		padding: 2,
+		borderRadius: 5,
+	},
 });
 
-export default Profile;
+export default Register;

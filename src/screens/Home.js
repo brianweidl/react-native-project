@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { TouchableOpacity } from "react-native-web";
-import Comments from "./Comments";
 import { db } from "../firebase/config";
 
 class Home extends Component {
@@ -30,17 +29,18 @@ class Home extends Component {
 	render() {
 		return (
 			<View style={styles.container}>
-				<Text>Soy Home</Text>
-				<TouchableOpacity
-					onPress={() => this.props.navigation.navigate("Comments")}
-				>
-					<Text>Ir a comentarios</Text>
-				</TouchableOpacity>
+				<Text> Home</Text>
+
 				<TouchableOpacity onPress={() => this.addUser()}>
 					<Text>Agregar Usuario</Text>
 				</TouchableOpacity>
 				<TouchableOpacity onPress={() => this.getUsers()}>
 					<Text>Ver Usuarios</Text>
+				</TouchableOpacity>
+				<TouchableOpacity
+					onPress={() => this.props.navigation.navigate("Comments")}
+				>
+					<Text>Ir a comentarios</Text>
 				</TouchableOpacity>
 			</View>
 		);
