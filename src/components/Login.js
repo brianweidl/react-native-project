@@ -47,11 +47,22 @@ class Login extends Component {
 						<Text style={styles.signInText}>SIGN IN</Text>
 					</TouchableOpacity>
 				</LinearGradient>
-				<TouchableOpacity
-					onPress={() => this.props.navigation.navigate("Register")}
+				<View
+					style={{
+						display: "flex",
+						justifyContent: "center",
+						alignItems: "center",
+						gap: 8,
+					}}
 				>
-					<Text>Ir a registro</Text>
-				</TouchableOpacity>
+					<Text>Not registered?</Text>
+					<TouchableOpacity
+						onPress={() => this.props.navigation.navigate("Register")}
+						style={styles.createAccount}
+					>
+						<Text style={{ fontWeight: 700 }}>Create an account</Text>
+					</TouchableOpacity>
+				</View>
 			</View>
 		);
 	}
@@ -62,7 +73,7 @@ const styles = StyleSheet.create({
 		display: "flex",
 		justifyContent: "center",
 		alignItems: "center",
-		gap: 30,
+		gap: 20,
 		width: "100%",
 		height: "100%",
 		backgroundColor: "white",
@@ -73,8 +84,8 @@ const styles = StyleSheet.create({
 		marginBottom: 3,
 		textAlign: "left",
 	},
-	title: { fontSize: 35, fontWeight: 750 },
-	subtitle: { color: "#5C5C5C" },
+	title: { fontSize: 35, fontWeight: 750, margin: 4 },
+	subtitle: { color: "#5C5C5C", marginLeft: 6 },
 	inputView: {
 		display: "flex",
 		flexDirection: "row",
@@ -91,7 +102,6 @@ const styles = StyleSheet.create({
 	input: {
 		padding: 10,
 		borderRadius: 5,
-		borderWidth: 0,
 		outlineStyle: "none", //ver si rompe
 	},
 	submit: {
@@ -106,6 +116,14 @@ const styles = StyleSheet.create({
 	signInText: {
 		color: "white",
 		fontWeight: 500,
+	},
+	createAccount: {
+		padding: 10,
+		borderRadius: 8,
+		borderWidth: 1,
+		borderColor: "#D4D4D4",
+		width: 230,
+		textAlign: "center",
 	},
 });
 
