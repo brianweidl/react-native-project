@@ -35,6 +35,7 @@ function HomeNav() {
 				options={{
 					tabBarIcon: () => <FontAwesome name="user" size={24} color="black" />,
 				}}
+				initialParams={{ prueba: "prueba string" }}
 			/>
 		</Tab.Navigator>
 	);
