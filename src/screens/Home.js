@@ -1,47 +1,47 @@
 import React, { Component } from "react";
-import { View, Text, StyleSheet } from "react-native";
-import { TouchableOpacity } from "react-native-web";
+import {
+	View,
+	Text,
+	StyleSheet,
+	TouchableOpacity,
+	FlatList,
+	Image,
+	ActivityIndicator,
+} from "react-native";
 import { db } from "../firebase/config";
+import Post from "../components/Post";
 
 class Home extends Component {
 	constructor(props) {
 		super(props);
+		this.state = {
+			posts: [],
+			loading: false,
+		};
 	}
 
-	addUser() {
-		db
-			.collection("users")
-			.add({
-				nombre: "Brian",
-				Apellido: "Weidl",
-			})
-			.then((doc) => console.log(doc))
-			.catch((err) => console.log(err));
+	componentDidMount() {
+		this.setState({ loading: true });
+		db.collection("posts").onSnapshot(({ docs }) => {
+			let dbPosts = [];
+			console.log(docs);
+			dbPosts = docs.map((doc) => doc.data());
+			this.setState({ posts: dbPosts });
+			this.setState({ loading: false });
+		});
 	}
-	getUsers() {
-		db
-			.collection("users")
-			.get()
-			.then((users) => {
-				users.forEach((user) => console.log(user.data()));
-			});
-	}
+
 	render() {
 		return (
 			<View style={styles.container}>
-				<Text> Home</Text>
-
-				<TouchableOpacity onPress={() => this.addUser()}>
-					<Text>Agregar Usuario</Text>
-				</TouchableOpacity>
-				<TouchableOpacity onPress={() => this.getUsers()}>
-					<Text>Ver Usuarios</Text>
-				</TouchableOpacity>
-				<TouchableOpacity
-					onPress={() => this.props.navigation.navigate("Comments")}
-				>
-					<Text>Ir a comentarios</Text>
-				</TouchableOpacity>
+				{this.state.loading ? (
+					<ActivityIndicator />
+				) : (
+					<FlatList
+						data={this.state.posts}
+						renderItem={({ item }) => <Post item={item} />}
+					/>
+				)}
 			</View>
 		);
 	}
@@ -52,8 +52,9 @@ const styles = StyleSheet.create({
 		display: "flex",
 		justifyContent: "center",
 		alignItems: "center",
-		gap: 20,
-		height: 500,
+		width: "100%",
+		height: "100%",
+		backgroundColor: "white",
 	},
 });
 

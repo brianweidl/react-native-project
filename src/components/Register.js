@@ -12,7 +12,13 @@ import { LinearGradient } from "expo-linear-gradient";
 class Register extends Component {
 	constructor(props) {
 		super(props);
+		this.state = {
+			name: "",
+			mail: "",
+			password: "",
+		};
 	}
+
 	render() {
 		return (
 			<View style={styles.container}>
@@ -29,7 +35,12 @@ class Register extends Component {
 							color="black"
 							style={styles.inputIcon}
 						/>
-						<TextInput placeholder="Name" style={styles.input} primary="green" />
+						<TextInput
+							placeholder="Name"
+							style={styles.input}
+							onChangeText={(text) => this.setState({ name: text })}
+							primary="green"
+						/>
 					</View>
 					<View style={styles.inputView}>
 						<MaterialIcons
@@ -38,7 +49,12 @@ class Register extends Component {
 							color="black"
 							style={styles.inputIcon}
 						/>
-						<TextInput placeholder="email" style={styles.input} primary="green" />
+						<TextInput
+							placeholder="email"
+							style={styles.input}
+							primary="green"
+							onChangeText={(text) => this.setState({ mail: text })}
+						/>
 					</View>
 					<View style={styles.inputView}>
 						<MaterialIcons
@@ -47,7 +63,12 @@ class Register extends Component {
 							color="black"
 							style={styles.inputIcon}
 						/>
-						<TextInput placeholder="password" style={styles.input} primary="green" />
+						<TextInput
+							placeholder="password"
+							style={styles.input}
+							primary="green"
+							onChangeText={(text) => this.setState({ password: text })}
+						/>
 					</View>
 					<View style={styles.inputView}>
 						<MaterialIcons
@@ -63,18 +84,25 @@ class Register extends Component {
 					<TouchableOpacity
 						style={styles.submit}
 						onPress={() =>
-							this.props.navigation.navigate("HomeNav", { screen: "Home" })
+							this.props.register(
+								this.state.mail,
+								this.state.password,
+								this.state.name
+							)
 						}
 					>
 						<Text style={styles.signUpText}>SIGN UP</Text>
 					</TouchableOpacity>
 				</LinearGradient>
+				{this.props.registerErr ? (
+					<Text>Error: {this.props.registerErr}</Text>
+				) : null}
 				<View
 					style={{
 						display: "flex",
 						justifyContent: "center",
 						alignItems: "center",
-						gap: 8,
+						margin: 5,
 					}}
 				>
 					<Text>Already have an account?</Text>
@@ -82,7 +110,7 @@ class Register extends Component {
 						onPress={() => this.props.navigation.navigate("Login")}
 						style={styles.loginNav}
 					>
-						<Text style={{ fontWeight: 700 }}>Log in here!</Text>
+						<Text style={{ fontWeight: "700" }}>Log in here!</Text>
 					</TouchableOpacity>
 				</View>
 			</View>
@@ -95,7 +123,6 @@ const styles = StyleSheet.create({
 		display: "flex",
 		justifyContent: "center",
 		alignItems: "center",
-		gap: 20,
 		width: "100%",
 		height: "100%",
 		backgroundColor: "white",
@@ -106,17 +133,19 @@ const styles = StyleSheet.create({
 		marginBottom: 3,
 		textAlign: "left",
 	},
-	title: { fontSize: 35, fontWeight: 750, margin: 4 },
-	subtitle: { color: "#5C5C5C", marginLeft: 6 },
+	title: { fontSize: 35, fontWeight: "700", margin: 4 },
+	subtitle: {
+		color: "#5C5C5C",
+		marginLeft: 6,
+	},
 	inputView: {
 		display: "flex",
 		flexDirection: "row",
 		alignItems: "center",
-		gap: 9,
 		borderWidth: 1,
 		borderColor: "#D4D4D4",
 		borderRadius: 8,
-		margin: 5,
+		margin: 8,
 	},
 	inputIcon: {
 		margin: 10,
@@ -124,7 +153,6 @@ const styles = StyleSheet.create({
 	input: {
 		padding: 10,
 		borderRadius: 5,
-		outlineStyle: "none", //ver si rompe
 	},
 	submit: {
 		borderRadius: 5,
@@ -134,14 +162,16 @@ const styles = StyleSheet.create({
 	gradient: {
 		borderRadius: 5,
 		width: 230,
+		margin: 5,
 	},
 	signUpText: {
 		color: "white",
-		fontWeight: 500,
+		fontWeight: "500",
 	},
 	loginNav: {
 		width: 230,
 		textAlign: "center",
+		margin: 5,
 	},
 });
 export default Register;
