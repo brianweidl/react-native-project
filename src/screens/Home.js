@@ -24,8 +24,9 @@ class Home extends Component {
 		this.setState({ loading: true });
 		db.collection("posts").onSnapshot(({ docs }) => {
 			let dbPosts = [];
-			console.log(docs);
-			dbPosts = docs.map((doc) => doc.data());
+			dbPosts = docs.map((doc) => {
+				return { data: doc.data(), id: doc.id };
+			});
 			this.setState({ posts: dbPosts });
 			this.setState({ loading: false });
 		});
@@ -39,7 +40,9 @@ class Home extends Component {
 				) : (
 					<FlatList
 						data={this.state.posts}
-						renderItem={({ item }) => <Post item={item} />}
+						renderItem={({ item }) => (
+							<Post postInfo={item} userInfo={this.props.userInfo} />
+						)}
 					/>
 				)}
 			</View>

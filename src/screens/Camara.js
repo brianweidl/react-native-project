@@ -25,6 +25,7 @@ class Camara extends Component {
 			.add({
 				description: this.state.description,
 				image: this.state.image,
+				likes: [],
 			})
 			.then((res) => console.log(res))
 			.catch((e) => console.log(e));

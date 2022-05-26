@@ -65,12 +65,13 @@ class Register extends Component {
 						/>
 						<TextInput
 							placeholder="password"
+							secureTextEntry={true}
 							style={styles.input}
 							primary="green"
 							onChangeText={(text) => this.setState({ password: text })}
 						/>
 					</View>
-					<View style={styles.inputView}>
+					{/* <View style={styles.inputView}>
 						<MaterialIcons
 							name="lock-outline"
 							size={24}
@@ -78,7 +79,7 @@ class Register extends Component {
 							style={styles.inputIcon}
 						/>
 						<TextInput placeholder="Confirm Password" style={styles.input} />
-					</View>
+					</View> */}
 				</View>
 				<LinearGradient style={styles.gradient} colors={["#537A96", "#659DA6"]}>
 					<TouchableOpacity

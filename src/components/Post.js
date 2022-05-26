@@ -7,25 +7,67 @@ import {
 	FlatList,
 	Image,
 } from "react-native";
+import { db } from "../firebase/config";
+import firebase from "firebase";
 
 class Post extends Component {
 	constructor(props) {
 		super(props);
+		this.state = {
+			likes: this.props.postInfo.data.likes.length,
+			liked: this.props.postInfo.data.likes.includes(this.props.userInfo.email),
+		};
+	}
+
+	darLike() {
+		db
+			.collection("posts")
+			.doc(this.props.postInfo.id)
+			.update({
+				likes: firebase.firestore.FieldValue.arrayUnion(this.props.userInfo.email),
+			})
+			.then(() => this.setState({ likes: this.state.likes + 1, liked: true }))
+			.catch((e) => console.log(e));
+	}
+
+	quitarLike() {
+		db
+			.collection("posts")
+			.doc(this.props.postInfo.id)
+			.update({
+				likes: firebase.firestore.FieldValue.delete(this.props.userInfo.email),
+			})
+			.then(() => this.setState({ likes: this.state.likes - 1, liked: false }))
+			.catch((e) => console.log(e));
 	}
 	render() {
 		return (
 			<View style={styles.container}>
 				<Text>Posteo</Text>
-				<Image style={styles.image} source={{ uri: this.props.item.image }} />
+				<Image
+					style={styles.image}
+					source={{ uri: this.props.postInfo.data.image }}
+				/>
 				<View style={styles.buttons}>
-					<TouchableOpacity>
-						<Text>Dar Like</Text>
-					</TouchableOpacity>
+					<View>
+						{this.state.liked ? (
+							<TouchableOpacity onPress={() => this.quitarLike()}>
+								<Text>Quitar Like</Text>
+							</TouchableOpacity>
+						) : (
+							<TouchableOpacity onPress={() => this.darLike()}>
+								<Text>Dar Like</Text>
+							</TouchableOpacity>
+						)}
+					</View>
+					<Text>{this.state.likes}</Text>
 					<TouchableOpacity>
 						<Text>Comentarios</Text>
 					</TouchableOpacity>
 				</View>
-				<Text style={styles.description}>{this.props.item.description}</Text>
+				<Text style={styles.description}>
+					{this.props.postInfo.data.description}
+				</Text>
 			</View>
 		);
 	}

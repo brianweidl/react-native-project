@@ -22,10 +22,12 @@ class HomeNav extends Component {
 			>
 				<Tab.Screen
 					name="Home"
-					component={Home}
 					options={{
 						tabBarIcon: () => <Foundation name="home" size={24} color="black" />,
 					}}
+					children={(navProps) => (
+						<Home userInfo={this.props.userInfo} {...navProps} />
+					)}
 				/>
 				<Tab.Screen
 					name="Camara"
