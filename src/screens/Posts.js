@@ -11,24 +11,24 @@ import {
 import { db } from "../firebase/config";
 import Post from "../components/Post";
 
-class Home extends Component {
+class Posts extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
 			posts: [],
 			loading: false,
 		};
+		console.log(this.props);
 	}
 
 	componentDidMount() {
-		this.setState({ loading: true });
 		db.collection("posts").onSnapshot(({ docs }) => {
+			this.setState({ loading: true });
 			let dbPosts = [];
 			dbPosts = docs.map((doc) => {
 				return { data: doc.data(), id: doc.id };
 			});
-			this.setState({ posts: dbPosts });
-			this.setState({ loading: false });
+			this.setState({ posts: dbPosts, loading: false });
 		});
 	}
 
@@ -40,8 +40,13 @@ class Home extends Component {
 				) : (
 					<FlatList
 						data={this.state.posts}
+						keyExtractor={(item) => item.id}
 						renderItem={({ item }) => (
-							<Post postInfo={item} userInfo={this.props.userInfo} />
+							<Post
+								postInfo={item}
+								userInfo={this.props.userInfo}
+								navigation={this.props.navigation}
+							/>
 						)}
 					/>
 				)}
@@ -61,4 +66,4 @@ const styles = StyleSheet.create({
 	},
 });
 
-export default Home;
+export default Posts;

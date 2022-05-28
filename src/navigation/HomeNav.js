@@ -2,7 +2,7 @@ import React, { Component } from "react";
 
 import { AntDesign, Foundation, FontAwesome } from "@expo/vector-icons";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import Home from "../screens/Home";
+import Posts from "../screens/Posts";
 import Camara from "../screens/Camara";
 import Profile from "../screens/Profile";
 
@@ -21,20 +21,23 @@ class HomeNav extends Component {
 				}}
 			>
 				<Tab.Screen
-					name="Home"
+					name="Posts"
 					options={{
 						tabBarIcon: () => <Foundation name="home" size={24} color="black" />,
+						headerShown: false,
 					}}
 					children={(navProps) => (
-						<Home userInfo={this.props.userInfo} {...navProps} />
+						<Posts userInfo={this.props.userInfo} {...navProps} />
 					)}
 				/>
 				<Tab.Screen
 					name="Camara"
-					component={Camara}
 					options={{
 						tabBarIcon: () => <AntDesign name="pluscircle" size={24} color="black" />,
 					}}
+					children={(navProps) => (
+						<Camara userInfo={this.props.userInfo} {...navProps} />
+					)}
 				/>
 				<Tab.Screen
 					name="Profile"

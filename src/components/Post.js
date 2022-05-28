@@ -35,15 +35,16 @@ class Post extends Component {
 			.collection("posts")
 			.doc(this.props.postInfo.id)
 			.update({
-				likes: firebase.firestore.FieldValue.delete(this.props.userInfo.email),
+				likes: firebase.firestore.FieldValue.arrayRemove(this.props.userInfo.email),
 			})
 			.then(() => this.setState({ likes: this.state.likes - 1, liked: false }))
 			.catch((e) => console.log(e));
 	}
+
 	render() {
 		return (
 			<View style={styles.container}>
-				<Text>Posteo</Text>
+				<Text>Posteo de {this.props.postInfo.data.owner}</Text>
 				<Image
 					style={styles.image}
 					source={{ uri: this.props.postInfo.data.image }}
@@ -61,7 +62,13 @@ class Post extends Component {
 						)}
 					</View>
 					<Text>{this.state.likes}</Text>
-					<TouchableOpacity>
+					<TouchableOpacity
+						onPress={() =>
+							this.props.navigation.navigate("Comments", {
+								postId: this.props.postInfo.id,
+							})
+						}
+					>
 						<Text>Comentarios</Text>
 					</TouchableOpacity>
 				</View>

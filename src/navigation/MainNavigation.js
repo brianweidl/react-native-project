@@ -3,6 +3,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 import HomeNav from "./HomeNav";
 import Login from "../components/Login";
 import Register from "../components/Register";
+import Comments from "../components/Comments";
 
 import { db, auth } from "../firebase/config";
 
@@ -84,17 +85,20 @@ export default class MainNavigation extends Component {
 		return (
 			<Stack.Navigator>
 				{this.state.loggedIn ? (
-					<Stack.Screen
-						name="HomeNav"
-						options={{ headerShown: false }}
-						children={(navProps) => (
-							<HomeNav
-								userInfo={this.state.userInfo}
-								logout={() => this.logout()}
-								{...navProps}
-							/>
-						)}
-					/>
+					<Stack.Group>
+						<Stack.Screen
+							name="HomeNav"
+							options={{ headerShown: false }}
+							children={(navProps) => (
+								<HomeNav
+									userInfo={this.state.userInfo}
+									logout={() => this.logout()}
+									{...navProps}
+								/>
+							)}
+						/>
+						<Stack.Screen name="Comments" component={Comments} />
+					</Stack.Group>
 				) : (
 					<Stack.Group>
 						<Stack.Screen
