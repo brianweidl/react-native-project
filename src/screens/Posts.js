@@ -35,6 +35,7 @@ class Posts extends Component {
 	render() {
 		return (
 			<View style={styles.container}>
+				<Text style={styles.title}>React Native Project</Text>
 				{this.state.loading ? (
 					<ActivityIndicator />
 				) : (
@@ -63,6 +64,11 @@ const styles = StyleSheet.create({
 		width: "100%",
 		height: "100%",
 		backgroundColor: "white",
+	},
+	title: {
+		fontWeight: "700",
+		fontSize: 20,
+		margin: 5,
 	},
 });
 

@@ -18,13 +18,13 @@ class HomeNav extends Component {
 			<Tab.Navigator
 				screenOptions={{
 					tabBarShowLabel: false,
+					headerShown: false,
 				}}
 			>
 				<Tab.Screen
 					name="Posts"
 					options={{
-						tabBarIcon: () => <Foundation name="home" size={24} color="black" />,
-						headerShown: false,
+						tabBarIcon: () => <Foundation name="home" size={24} color="#537A96" />,
 					}}
 					children={(navProps) => (
 						<Posts userInfo={this.props.userInfo} {...navProps} />
@@ -33,7 +33,9 @@ class HomeNav extends Component {
 				<Tab.Screen
 					name="Camara"
 					options={{
-						tabBarIcon: () => <AntDesign name="pluscircle" size={24} color="black" />,
+						tabBarIcon: () => (
+							<AntDesign name="pluscircle" size={24} color="#537A96" />
+						),
 					}}
 					children={(navProps) => (
 						<Camara userInfo={this.props.userInfo} {...navProps} />
@@ -42,7 +44,7 @@ class HomeNav extends Component {
 				<Tab.Screen
 					name="Profile"
 					options={{
-						tabBarIcon: () => <FontAwesome name="user" size={24} color="black" />,
+						tabBarIcon: () => <FontAwesome name="user" size={24} color="#537A96" />,
 					}}
 					children={(navProps) => (
 						<Profile

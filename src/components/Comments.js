@@ -34,6 +34,7 @@ class Comments extends Component {
 			commentText: this.state.commentText,
 			createdAt: Date.now(),
 		};
+		console.log(newComment);
 		db
 			.collection("posts")
 			.doc(this.props.route.params.postId)
